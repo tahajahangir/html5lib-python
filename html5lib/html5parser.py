@@ -713,7 +713,8 @@ def getPhases(debug):
                 (("base", "basefont", "bgsound", "command", "link"),
                  self.startTagBaseLinkCommand),
                 ("meta", self.startTagMeta),
-                ("head", self.startTagHead)
+                ("head", self.startTagHead),
+                (('head:meta','head:script', 'head:style'), self.startTagMyHead)
             ])
             self.startTagHandler.default = self.startTagOther
 
@@ -739,6 +740,11 @@ def getPhases(debug):
             self.parser.parseError("two-heads-are-not-better-than-one")
 
         def startTagBaseLinkCommand(self, token):
+            self.tree.insertElement(token)
+            self.tree.openElements.pop()
+            token["selfClosingAcknowledged"] = True
+
+        def startTagMyHead(self, token):
             self.tree.insertElement(token)
             self.tree.openElements.pop()
             token["selfClosingAcknowledged"] = True
