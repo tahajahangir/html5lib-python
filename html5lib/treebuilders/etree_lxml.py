@@ -21,7 +21,8 @@ from .. import constants
 from . import etree as etree_builders
 from .. import ihatexml
 
-import lxml.etree as etree
+import lxml.html as etree
+etree.Comment = etree.HtmlComment
 
 
 fullTree = True
@@ -339,7 +340,7 @@ class TreeBuilder(_base.TreeBuilder):
             docStr += ">"
             if self.doctype.name != token["name"]:
                 warnings.warn("lxml cannot represent doctype with a different name to the root element", DataLossWarning)
-        docStr += "<THIS_SHOULD_NEVER_APPEAR_PUBLICLY/>"
+        docStr += "<html>"
         root = etree.fromstring(docStr)
 
         # Append the initial comments:
