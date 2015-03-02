@@ -5,6 +5,7 @@ import gettext
 _ = gettext.gettext
 
 from xml.dom import Node
+from collections import OrderedDict
 
 DOCUMENT = Node.DOCUMENT_NODE
 DOCTYPE = Node.DOCUMENT_TYPE_NODE
@@ -71,7 +72,7 @@ class TreeWalker(object):
         return {"type": "StartTag",
                 "name": text_type(name),
                 "namespace": to_text(namespace),
-                "data": dict(((to_text(namespace, False), to_text(name)),
+                "data": OrderedDict(((to_text(namespace, False), to_text(name)),
                               to_text(value, False))
                              for (namespace, name), value in attrs.items())}
 

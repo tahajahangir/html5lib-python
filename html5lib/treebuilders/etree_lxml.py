@@ -14,6 +14,7 @@ from __future__ import absolute_import, division, unicode_literals
 import warnings
 import re
 import sys
+from collections import OrderedDict
 
 from . import _base
 from ..constants import DataLossWarning
@@ -193,10 +194,10 @@ class TreeBuilder(_base.TreeBuilder):
         infosetFilter = self.infosetFilter = ihatexml.InfosetFilter()
         self.namespaceHTMLElements = namespaceHTMLElements
 
-        class Attributes(dict):
+        class Attributes(OrderedDict):
             def __init__(self, element, value={}):
                 self._element = element
-                dict.__init__(self, value)
+                OrderedDict.__init__(self, value)
                 for key, value in self.items():
                     if isinstance(key, tuple):
                         name = "{%s}%s" % (key[2], infosetFilter.coerceAttribute(key[1]))

@@ -2,6 +2,7 @@ from __future__ import absolute_import, division, unicode_literals
 from six import with_metaclass
 
 import types
+from collections import OrderedDict
 
 from . import inputstream
 from . import tokenizer
@@ -262,7 +263,7 @@ class HTMLParser(object):
         """ HTML5 specific normalizations to the token stream """
 
         if token["type"] == tokenTypes["StartTag"]:
-            token["data"] = dict(token["data"][::-1])
+            token["data"] = OrderedDict(token["data"])
 
         return token
 

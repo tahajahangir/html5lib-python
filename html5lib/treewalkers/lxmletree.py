@@ -1,4 +1,5 @@
 from __future__ import absolute_import, division, unicode_literals
+from collections import OrderedDict
 from six import text_type
 
 from lxml import etree
@@ -156,7 +157,7 @@ class TreeWalker(_base.NonRecursiveTreeWalker):
             else:
                 namespace = None
                 tag = ensure_str(node.tag)
-            attrs = {}
+            attrs = OrderedDict()
             for name, value in list(node.attrib.items()):
                 name = ensure_str(name)
                 value = ensure_str(value)
